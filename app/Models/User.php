@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the tasks of the task group.
+     */
+    public function taskGroups()
+    {
+        return $this->hasMany(TaskGroup::class);
+    }
 }
