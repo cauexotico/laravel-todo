@@ -10,6 +10,15 @@ class TaskGroup extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+    ];
+
+    /**
      * Get the owner of the task group.
      */
     public function user()

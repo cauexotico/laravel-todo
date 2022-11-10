@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TaskGroup;
 use Illuminate\Http\Request;
 
 class TaskGroupController extends Controller
@@ -13,7 +14,9 @@ class TaskGroupController extends Controller
      */
     public function index()
     {
-        //
+        $taskGroups = TaskGroup::where('user_id', auth()->user()->id)->paginate();
+
+        return view('taskGroup.index', compact('taskGroups'));
     }
 
     /**
@@ -34,7 +37,15 @@ class TaskGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:60',
+        ]);
+
+        auth()->user()->taskGroups()->create([
+            'name' => $request->name,
+        ]);
+
+        return redirect()->route('task-group.index')->with('success', 'Task group has been created');
     }
 
     /**
