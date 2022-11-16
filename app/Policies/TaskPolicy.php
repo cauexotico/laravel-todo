@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\TaskGroup;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class TaskGroupPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TaskGroup  $taskGroup
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, TaskGroup $taskGroup)
+    public function view(User $user, Task $task)
     {
-        return $user->id === $taskGroup->user_id;
+        return $user->id === $task->taskGroup->user_id;
     }
 
     /**
@@ -48,34 +48,34 @@ class TaskGroupPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TaskGroup  $taskGroup
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, TaskGroup $taskGroup)
+    public function update(User $user, Task $task)
     {
-        return $user->id === $taskGroup->user_id;
+        return $user->id === $task->taskGroup->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TaskGroup  $taskGroup
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, TaskGroup $taskGroup)
+    public function delete(User $user, Task $task)
     {
-        return $user->id === $taskGroup->user_id;
+        return $user->id === $task->taskGroup->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TaskGroup  $taskGroup
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, TaskGroup $taskGroup)
+    public function restore(User $user, Task $task)
     {
         //
     }
@@ -84,10 +84,10 @@ class TaskGroupPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\TaskGroup  $taskGroup
+     * @param  \App\Models\Task  $task
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, TaskGroup $taskGroup)
+    public function forceDelete(User $user, Task $task)
     {
         //
     }

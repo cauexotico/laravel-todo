@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskGroupRequest;
 use App\Models\TaskGroup;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class TaskGroupController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(TaskGroup::class, 'task_group');
+        $this->authorizeResource(TaskGroup::class);
     }
 
     /**
@@ -45,15 +46,9 @@ class TaskGroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTaskGroupRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:60',
-        ]);
-
-        auth()->user()->taskGroups()->create([
-            'name' => $request->name,
-        ]);
+        auth()->user()->taskGroups()->create($request->validated());
 
         return redirect()->route('task-group.index')->with('success', 'Task group has been created');
     }

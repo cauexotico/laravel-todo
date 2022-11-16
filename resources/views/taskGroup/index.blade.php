@@ -14,11 +14,12 @@
                         @csrf
                         <div>
                             <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required/>
-                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
+                                required />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         <div class="flex justify-end mt-4">
-                            <x-primary-button>{{ __('Create') }}</x-primary-button>
+                            <x-primary-button>{{ __('Create Task Group') }}</x-primary-button>
                         </div>
                     </form>
                 </div>
@@ -26,6 +27,23 @@
                 @foreach ($taskGroups as $taskGroup)
                     <div class="p-6 mb-2 bg-white border-b border-gray-200 mt-2">
                         <a href="{{ route('task-group.show', $taskGroup->id) }}">{{ $taskGroup->name }}</a>
+
+                        <form method="post" action="{{ route('task.store', $taskGroup->id) }}">
+                            @csrf
+                            <div>
+                                <x-input-label for="description" :value="__('Description')" />
+                                <x-text-input id="description" class="block mt-1 w-full" type="text"
+                                    name="description" required />
+                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                            </div>
+                            <x-primary-button>{{ __('Create Task') }}</x-primary-button>
+                        </form>
+
+                        <ul>
+                            @foreach ($taskGroup->tasks as $task)
+                                <li>{{ $task->description }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 @endforeach
             </div>
