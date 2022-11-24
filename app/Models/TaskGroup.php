@@ -18,6 +18,17 @@ class TaskGroup extends Model
         'name',
     ];
 
+    public function isCompleted()
+    {
+        foreach ($this->tasks as $task) {
+            if ($task->completed === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Get the owner of the task group.
      */
